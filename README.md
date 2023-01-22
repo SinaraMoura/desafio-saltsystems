@@ -116,3 +116,115 @@ Essa é a rota que será utilizada para detalhar apenas um contato do sistema.
     "phone_number": 61999999999
 }
 ```
+3 - Para a entidade `messages` foi implementado as seguintes funcionalidades.
+
+a)Cadastrar uma nova mensagem
+###### `POST` `/messages`
+Essa é a rota que será utilizada para cadastrar um novo contato no sistema.
+
+- **Requisição**
+Sem parâmetros de rota ou de query.
+O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
+
+- user_id
+- message
+
+- **Resposta**  
+    Em caso de **sucesso**, é enviado no corpo (body) da resposta o conteúdo do contato cadastrado, incluindo seu respectivo `id`.
+    Em caso de **falha no cadastro**,  possuii um **_status code_** apropriado, e em seu corpo (body) possui um objeto com uma propriedade **mensagem** e no seu valor um texto explicando o motivo da falha.
+
+```javascript
+// POST /messages
+{
+	"user_id": 1,
+	"message": "Olá, tudo bem?"
+}
+```
+
+#### **Exemplos de resposta**
+
+```javascript
+// HTTP Status 200 / 201 / 204
+[
+	{
+		"id": 1,
+		"user_id": 1,
+		"message": "Olá, tudo bem?",
+		"data_message": "2023-01-22T00:43:43.959Z"
+	}
+]
+```
+
+b) Listar todos as mensagens
+###### `GET` `/messages`
+Essa é a rota que será utilizada para listar todas as mesnagens no sistema.
+
+- **Requisição**  
+    Sem parâmetros de rota ou de query.  
+    Não deverá possuir conteúdo no corpo da requisição.
+
+- **Resposta**  
+    Em caso de **sucesso**, o corpo (body) da resposta deverá possuir um objeto que representa o contatos encontrado, com todas as suas propriedades, conforme exemplo abaixo, acompanhado de **_status code_** apropriado.
+
+#### **Exemplo de requisição**
+
+```javascript
+// GET /messages
+// Sem conteúdo no corpo (body) da requisição
+```
+
+#### **Exemplos de resposta**
+
+```javascript
+// HTTP Status 200 / 201 / 204
+[
+    {
+		"id": 3,
+		"user_id": 2,
+		"message": "Olá, tudo bem"
+    }
+]
+```
+
+C) Detalhar uma mensagem
+###### `GET` `/messages/:user_id`
+Essa é a rota que será utilizada para detalhar mensagens de um contato específico no sistema.
+**Atenção!:** Deve-se infromar o ID do contato no parâmetro de rota.
+
+- **Requisição**  
+    Parâmetro de rota, informando o ID do contato correspondente.  
+    Não deverá possuir conteúdo no corpo da requisição.
+
+- **Resposta**  
+    Em caso de **sucesso**, o corpo (body) da resposta deverá possuir um objeto que representa o contato encontrado, com todas as suas propriedades, conforme exemplo abaixo, acompanhado de **_status code_** apropriado.  
+    Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **mensagem** que deverá possuir como valor um texto explicando o motivo da falha.
+
+#### **Exemplo de requisição**
+
+```javascript
+// GET /messages/1
+// Sem conteúdo no corpo (body) da requisição
+```
+#### **Exemplos de resposta**
+
+```javascript
+// HTTP Status 200 / 201 / 204
+[
+	{
+		"name": "Dora Aventureira",
+		"phone_number": "61993478418",
+		"id": 1,
+		"user_id": 1,
+		"message": "Olá, tudo bem?",
+		"data_message": "2023-01-22T00:42:00.392Z"
+	},
+	{
+		"name": "Dora Aventureira",
+		"phone_number": "61993478418",
+		"id": 2,
+		"user_id": 1,
+		"message": "O que vamos fazer nesse fim de semama?",
+		"data_message": "2023-01-22T00:43:43.959Z"
+	}
+]
+```
