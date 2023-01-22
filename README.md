@@ -1,6 +1,6 @@
-#API 
+# API  
 
-##Armazenar informações de contato e as mensagens
+## Armazenar informações de contato e as mensagens
 
 Foi solicitado que criasse uma API para armazenar as informações de contatos e suas respectivas mensagens fazendo uma integração com  site no qual emule o funcionamento do whatsApp.
 
