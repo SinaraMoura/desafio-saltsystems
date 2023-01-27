@@ -1,6 +1,6 @@
-#API 
+# API  
 
-##Armazenar informações de contato e as mensagens
+## Armazenar informações de contato e as mensagens
 
 Foi solicitado que criasse uma API para armazenar as informações de contatos e suas respectivas mensagens fazendo uma integração com  site no qual emule o funcionamento do whatsApp.
 
@@ -228,3 +228,18 @@ Essa é a rota que será utilizada para detalhar mensagens de um contato especí
 	}
 ]
 ```
+---
+# Tecnologias utilizadas
+
+- Arquitetura API REST
+- Linguagem: 
+JavaScript
+
+- Servidor: 
+Foi utilizado o Node.Js e Express
+
+- Banco de dados: 
+Foi utilizado banco relacional PostgresSql juntamente com o knex para fazer configuração de conexão
+
+- Variáveis de ambiente:
+Foi utilizado o dotenv para criação das variáveis.  
