@@ -1,8 +1,16 @@
 const express = require('express');
 const { newContact, listContacts, detailContact } = require('./controllers/contacts');
-const { newMessages, listMessages, detailMessage } = require('./controllers/messages')
+const { newMessages, listMessages, detailMessage } = require('./controllers/messages');
+const { usersRegistration, login, verifyEmail, verifyUser } = require('./controllers/users');
+const { authorization } = require('./middlewares/verifyToken');
 const router = express();
 
+router.post("/users", usersRegistration);
+router.post("/login", login);
+router.get("/email", verifyEmail);
+
+router.use(authorization);
+router.get("/users", verifyUser);
 router.post("/contacts", newContact);
 router.get("/contacts", listContacts);
 router.get("/contacts/:id", detailContact);
