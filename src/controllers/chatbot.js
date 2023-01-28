@@ -60,4 +60,14 @@ const detailMessageBot = async (req, res) => {
     }
 }
 
-module.exports = { chatBot, detailMessageBot };
+const deleteMessagesBot = async (req, res) => {
+    const { id_origem } = req.params;
+    try {
+        const queryDeleteMessagesBot = await knex('chatbot').delete().where({ id_origem }).returning("*");
+        return res.status(200).json(queryDeleteMessagesBot);
+    } catch (error) {
+        return res.status(500).json({ mensagem: error.message })
+    }
+}
+
+module.exports = { chatBot, detailMessageBot, deleteMessagesBot };

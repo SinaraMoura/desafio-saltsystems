@@ -1,5 +1,5 @@
 const express = require('express');
-const { chatBot, detailMessageBot } = require('./controllers/chatbot');
+const { chatBot, detailMessageBot, deleteMessagesBot } = require('./controllers/chatbot');
 const { newContact, listContacts, detailContact } = require('./controllers/contacts');
 const { newMessages, listMessages, detailMessage } = require('./controllers/messages');
 const { usersRegistration, login, verifyEmail, verifyUser } = require('./controllers/users');
@@ -16,9 +16,10 @@ router.post("/contacts", newContact);
 router.get("/contacts", listContacts);
 router.get("/contacts/:id", detailContact);
 router.post("/messages", newMessages);
-router.post("/bot", chatBot);
-router.get("/bot/:id_origem", detailMessageBot);
 router.get("/messages", listMessages);
 router.get("/messages/:user_id", detailMessage);
+router.post("/bot", chatBot);
+router.get("/bot/:id_origem", detailMessageBot);
+router.delete("/bot/:id_origem", deleteMessagesBot);
 
 module.exports = router;
