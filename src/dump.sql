@@ -23,3 +23,11 @@ create table messages(
     message text,
     data_message timestamp default now()
 );
+
+create table chatbot(
+    id serial primary key,
+    id_origem integer default 0,
+    id_destino integer default 0,
+    message text
+    data_message timestamp default now()
+);
