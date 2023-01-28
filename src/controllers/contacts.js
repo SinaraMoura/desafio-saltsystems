@@ -6,7 +6,7 @@ const newContact = async (req, res) => {
 
     try {
         const querySaveContact = await knex('contacts').insert({ name, phone_number }).returning('*');
-        return res.status(200).json({ message: "Contato cadastrado com sucesso!" });
+        return res.status(200).json(querySaveContact);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

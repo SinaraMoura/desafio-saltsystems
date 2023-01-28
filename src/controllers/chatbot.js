@@ -15,31 +15,31 @@ const chatBot = async (req, res) => {
                 `
             }, "Olá, sou o assistente virtual da SaltBurguer , e estou aqui para te ajudar. Vamos fazer o pedido? É só digitar o número da opção: ")
 
-            const insertMessages = await knex('chatbot').insert({ id_origem, id_destino, message }).returning('*');
-            const insertMessagesBot = await knex('chatbot').insert({ id_destino, message: optionMenu }).returning('*');
+            const insertMessages = await knex('chatbot').insert({ id_origem: id_origem, id_destino, message }).returning('*');
+            const insertMessagesBot = await knex('chatbot').insert({ id_destino: id_destino, message: optionMenu }).returning('*');
 
             return res.status(200).json([{ message: message, id: insertMessages[0].id, data_message: insertMessages[0].data_message },
             { message: optionMenu, id: insertMessagesBot[0].id, data_message: insertMessagesBot[0].data_message }]);
         }
 
         if (messages.length > 1) {
-            const optionPagamento = stages.pagamento.reduce((acc, value) => {
+            const optionPayment = stages.pagamento.reduce((acc, value) => {
                 return acc += ` 
                 ${value.id} - ${value.descricao}
                 `
             }, "Qual a forma de pagamento? ");
 
-            const queryBusca = await knex('chatbot').where({ message: optionPagamento }).andWhere({ id_origem });
+            const querySearch = await knex('chatbot').where({ message: optionPayment }).andWhere({ id_origem: id_origem });
 
-            if (queryBusca.length < 1) {
-                const insertMessages = await knex('chatbot').insert({ id_origem, message }).returning('*');
-                const insertMessagesBot = await knex('chatbot').insert({ id_destino, message: optionPagamento }).returning('*');
+            if (querySearch.length < 1) {
+                const insertMessages = await knex('chatbot').insert({ id_origem: id_origem, message }).returning('*');
+                const insertMessagesBot = await knex('chatbot').insert({ id_destino: id_destino, message: optionPayment }).returning('*');
 
                 return res.status(200).json(messages);
             }
-            const resposta = "Seu pedido será encaminhado. SaltBurguer agradece pela preferência !";
-            const insertMessages = await knex('chatbot').insert({ id_origem, message }).returning('*');
-            const insertMessagesBot = await knex('chatbot').insert({ id_destino, message: resposta }).returning('*');
+            const answer = "Seu pedido será encaminhado. SaltBurguer agradece pela preferência !";
+            const insertMessages = await knex('chatbot').insert({ id_origem: id_origem, message }).returning('*');
+            const insertMessagesBot = await knex('chatbot').insert({ id_destino: id_destino, message: answer }).returning('*');
 
             return res.status(200).json(messages);
         }
